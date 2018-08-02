@@ -1,0 +1,18 @@
+.SideMenu {
+  width: 280px;
+  background-color: #eee;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 900
+}
+
+
+@media (min-width: 500px){
+
+  .SideMenu {
+    position: static;
+  }
+
+}

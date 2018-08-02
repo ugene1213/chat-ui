@@ -1,0 +1,23 @@
+.ChatBox {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-height: 50px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.ChatBox > input {
+  flex: 1 1 auto;
+  padding: 10px;
+}
+
+.ChatBox > input:focus {
+  outline: none;
+}
+
+.ChatBox > button {
+  max-width: 80px;
+  color: white;
+  background-color: #0082DD;
+  outline: none;
+}
