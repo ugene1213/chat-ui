@@ -18,7 +18,7 @@ class ChatArea extends Component {
     this.initiateConnection();
   }
 
-  //initiates chat message
+  //initiates connection from socket to server
   initiateConnection = () => {
 
     //connecting to Socket.IO chat server
