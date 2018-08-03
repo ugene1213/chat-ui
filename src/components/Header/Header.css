@@ -4,4 +4,7 @@
   border-bottom: 1px solid #eee;
   padding: 10px;
   width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
 }

@@ -1,72 +1,38 @@
 
 //This is your top level React component, you may change everything
-
-import React from 'react'
-import io from "socket.io-client";
+import React from 'react';
 import Header from "./Header/Header";
 import SideMenu from "./SideMenu/SideMenu";
 import ChatArea from './ChatArea/ChatArea';
 import Aux from "../utils/Aux";
+import BlackOut from "./UI/BlackOut";
+import { connect } from 'react-redux';
+import NameModal from './NameModal/NameModal';
 
 
 class App extends React.PureComponent {
 
   state = {
-    chatMessage: ''
+    menuOpen: false
   }
 
-
-
-  componentDidMount() {
-    this.initiateConnection();
-  }
-
-  //initiates chat message
-  initiateConnection = () => {
-
-    //connecting to Socket.IO chat server
-    const socket = io("https://spotim-demo-chat-server.herokuapp.com");
-    socket.on("connect", () => {
-      console.log("connected to chat server!");
-      this.setState({
-        socket: socket
-      })
-    });
-    socket.on("disconnect", () => {
-      console.log("disconnected from chat server!");
-      this.setState({
-        socket: null
-      });
-    });
-
-    socket.on("spotim/chat", (resp) => {
-      console.log(resp.message);
-    });
-
-  }
-
-
-  changeHandler = (e) => {
+  toggleSideDrawer = (toggle) => {
     this.setState({
-      chatMessage: e.target.value
-    });
-  }
-
-  submitMessage = (e) => {
-    this.state.socket.emit('spotim/chat', {
-      message: this.state.chatMessage,
-      name: 'Johnny',
-      avatar: "DOG PIC"
+      menuOpen: toggle
     })
   }
+
 
   render() {
     return (
       <Aux>
-        <Header />
-
+        <NameModal />
+        <Header openSideDrawer={() => this.toggleSideDrawer(true)} />
+        <BlackOut
+          close={() => this.toggleSideDrawer(false)}
+          isOpen={this.state.menuOpen}/>
         <div className='main-content'>
-          <SideMenu />
+          <SideMenu isOpen={this.state.menuOpen} />
           <ChatArea />
         </div>
 
@@ -75,4 +41,9 @@ class App extends React.PureComponent {
   }
 }
 
+const mapStateToProps = ({ userName }) => {
+  return {
+    userName
+  };
+}
 export default App;
